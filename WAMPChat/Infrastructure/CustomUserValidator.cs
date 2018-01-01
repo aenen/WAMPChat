@@ -12,7 +12,7 @@ namespace WAMPChat.Infrastructure
     public class CustomUserValidator : IIdentityValidator<AppUser>
     {
         public async Task<IdentityResult> ValidateAsync(AppUser item)
-        {
+        {            
             List<string> errors = new List<string>();
 
             if (String.IsNullOrEmpty(item.UserName.Trim()))
