@@ -12,6 +12,7 @@ using WAMPChat.Models;
 
 namespace WAMPChat.Controllers
 {
+    [Authorize(Roles = "Administrators")]
     public class RoleAdminController : Controller
     {
         private AppUserManager UserManager
