@@ -28,13 +28,6 @@ namespace WAMPChat.Controllers
             return View();
         }
 
-        [Authorize]
-        public ActionResult Logout()
-        {
-            AuthManager.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -51,6 +44,9 @@ namespace WAMPChat.Controllers
                 ClaimsIdentity ident = await UserManager.CreateIdentityAsync(user,
                     DefaultAuthenticationTypes.ApplicationCookie);
 
+                ident.AddClaims(LocationClaimsProvider.GetClaims(ident));
+                ident.AddClaims(ClaimsRoles.CreateRolesFromClaims(ident));
+
                 AuthManager.SignOut();
                 AuthManager.SignIn(new AuthenticationProperties
                 {
@@ -60,6 +56,13 @@ namespace WAMPChat.Controllers
             }
 
             return View(details);
+        }
+
+        [Authorize]
+        public ActionResult Logout()
+        {
+            AuthManager.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
         private IAuthenticationManager AuthManager
