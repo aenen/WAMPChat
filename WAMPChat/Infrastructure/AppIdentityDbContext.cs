@@ -24,7 +24,7 @@ namespace WAMPChat.Infrastructure
         }
     }
 
-    public class IdentityDbInit : DropCreateDatabaseAlways<AppIdentityDbContext>
+    public class IdentityDbInit : CreateDatabaseIfNotExists<AppIdentityDbContext>
     {
 
         protected override void Seed(AppIdentityDbContext context)
