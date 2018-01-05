@@ -24,6 +24,6 @@ namespace WAMPChat.Infrastructure
         }
     }
 
-    public class IdentityDbInit : NullDatabaseInitializer<AppIdentityDbContext>
+    public class IdentityDbInit : CreateDatabaseIfNotExists<AppIdentityDbContext>
     { }
 }
