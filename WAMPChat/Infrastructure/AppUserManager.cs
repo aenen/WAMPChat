@@ -22,14 +22,14 @@ namespace WAMPChat.Infrastructure
             AppIdentityDbContext db = context.Get<AppIdentityDbContext>();
             AppUserManager manager = new AppUserManager(new UserStore<AppUser>(db));
 
-            manager.PasswordValidator = new CustomPasswordValidator
-            {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = false,
-                RequireDigit = false,
-                RequireLowercase = true,
-                RequireUppercase = true
-            };
+            //manager.PasswordValidator = new CustomPasswordValidator
+            //{
+            //    RequiredLength = 6,
+            //    RequireNonLetterOrDigit = false,
+            //    RequireDigit = false,
+            //    RequireLowercase = true,
+            //    RequireUppercase = true
+            //};
 
             manager.UserValidator = new CustomUserValidator();
 
