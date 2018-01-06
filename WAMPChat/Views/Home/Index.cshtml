@@ -5,17 +5,37 @@
     ViewBag.Title = "ASP.NET Identity";
 }
 
-@Html.ActionLink("Выйти", "Logout", "Account", null, new { @class = "btn btn-primary" })
-
 <div class="panel panel-primary">
-    <div class="panel-heading">Данные пользователей</div>
-    <table class="table table-striped">
-        @foreach (string key in Model.Keys)
-        {
-            <tr>
-                <th>@key</th>
-                <td>@Model[key]</td>
-            </tr>
-        }
-    </table>
+    <div class="panel-heading">WAMP Test</div>
+    <div class="panel-body">
+        <span id="count"></span>
+        <button id="click">клік</button>
+    </div>
 </div>
+
+<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+@*<script src="~/Scripts/wampy.js"></script>*@
+<script>
+    const ws = new Wampy('localhost:9319/ws', {
+        realm: 'realm1',
+
+        onConnect: () => {
+            console.log('connected');
+            ws.call('wamp.test.get.count', [], {
+                onSuccess: args => $("#count").text(args[0]),
+                onError: err => console.error(err)
+            });
+
+            ws.subscribe('wamp.test.count.changed', args => {
+                $("#count").text(args[0])
+            });
+
+            $("#click").on('click', () => {
+                ws.call("wamp.test.click", [], {
+                    //onSuccess: args => alert("Вы купили билет с номером " + args[0]),
+                    onError: (err) => console.error(err)
+                });
+            });
+        }
+    });
+</script>
