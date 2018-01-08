@@ -23,7 +23,7 @@ namespace WAMPChat
 
             //host.Open();
 
-            WampConfig.StartRouter().ContinueWith(x => WampConfig.StartServer());
+            //WampConfig.StartRouter().ContinueWith(x => WampConfig.StartServer());
 
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
